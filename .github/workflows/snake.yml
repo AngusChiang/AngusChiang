@@ -6,14 +6,23 @@ on:
 
 jobs:
   snake:
-    runs-on: ubuntu-latest
     permissions:
       contents: write
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: Platane/snk@main
         with:
           github_user_name: AngusChiang
           outputs: |
             snake.svg?palette=github-dark
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add snake.svg
+          if git diff --cached --quiet; then echo "snake unchanged, skip"; exit 0; fi
+          git commit -m "🐍 Update contribution snake"
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
