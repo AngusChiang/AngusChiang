@@ -10,9 +10,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: platypus-inc/snake-action@v3
+      - uses: Platane/snk@main
         with:
-          github_user_name: jzy321023
-          svg_filename: snake.svg
+          github_user_name: AngusChiang
+          outputs: |
+            snake.svg?palette=github-dark
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
